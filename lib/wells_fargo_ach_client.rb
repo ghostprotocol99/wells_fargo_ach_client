@@ -22,6 +22,8 @@ require 'wells_fargo_ach_client/models/adjustment_def'
 require 'wells_fargo_ach_client/models/bank_information_def'
 require 'wells_fargo_ach_client/models/error_def'
 require 'wells_fargo_ach_client/models/errors_def'
+require 'wells_fargo_ach_client/models/hello_wellsfargo_response_def'
+require 'wells_fargo_ach_client/models/hello_wellsfargo_responses_def'
 require 'wells_fargo_ach_client/models/invoice_def'
 require 'wells_fargo_ach_client/models/invoice_def_adjustment_information'
 require 'wells_fargo_ach_client/models/invoice_information_def'
@@ -32,6 +34,7 @@ require 'wells_fargo_ach_client/models/payment_status_def'
 
 # APIs
 require 'wells_fargo_ach_client/api/check_individual_ach_payment_status_api'
+require 'wells_fargo_ach_client/api/utilities_api'
 require 'wells_fargo_ach_client/api/originate_an_ach_payment_api'
 
 module WellsFargoAchClient
@@ -44,9 +47,9 @@ module WellsFargoAchClient
     # If no block given, return the default Configuration object.
     def configure
       if block_given?
-        yield(Configuration.default)
+        yield(ApiClient.default.config)
       else
-        Configuration.default
+        ApiClient.default.config
       end
     end
   end

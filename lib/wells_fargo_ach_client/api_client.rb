@@ -109,6 +109,7 @@ module WellsFargoAchClient
         :ssl_verifyhost => _verify_ssl_host,
         :sslcert => @config.cert_file,
         :sslkey => @config.key_file,
+        :keypasswd => @config.key_password,
         :verbose => @config.debugging
       }
 

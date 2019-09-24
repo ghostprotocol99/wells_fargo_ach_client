@@ -116,6 +116,10 @@ module WellsFargoAchClient
     # Client private key file (for client certificate)
     attr_accessor :key_file
 
+    ### TLS/SSL setting
+    # Passphrase for client private key
+    attr_accessor :key_password
+
     # Set this to customize parameters encoding of array parameter with multi collectionFormat.
     # Default to nil.
     #
@@ -132,7 +136,9 @@ module WellsFargoAchClient
       @host = 'api.wellsfargo.com'
       @base_path = '/ach/v1'
       @api_key = {}
-      @api_key_prefix = {}
+      @api_key_prefix = {
+        'Authorization' => 'Bearer'
+      }
       @timeout = 0
       @client_side_validation = true
       @verify_ssl = true
@@ -140,6 +146,7 @@ module WellsFargoAchClient
       @params_encoding = nil
       @cert_file = nil
       @key_file = nil
+      @key_password = nil
       @debugging = false
       @inject_format = false
       @force_ending_format = false
@@ -151,6 +158,15 @@ module WellsFargoAchClient
     # The default Configuration object.
     def self.default
       @@default ||= Configuration.new
+    end
+
+    def self.with_ssl_cert_auth(cert_file, key_file, key_password)
+      configuration = Configuration.new do |config|
+        config.cert_file = cert_file
+        config.key_file = key_file
+        config.key_password = key_password
+      end
+      configuration
     end
 
     def configure
